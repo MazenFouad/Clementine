@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/products.css">
+
+    <style>
+        #filter {
+            height: 40px;
+            width: 60px;
+            /* font-weight: bold; */
+            font-size: 17px;
+            border-color: rgba(128, 128, 128, 0.082);
+            border-radius: 2px;
+            background-color: white;
+            color: black;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include('../partials/navbar') %>
+    <div id="popup" class="popup"></div>
+        <section id="rings-intro">
+            <h1 class="rings-intro-title">
+                <%= productTitle %>
+
+            </h1>
+            <p class="snip">
+                <%=body %>
+            </p>
+        </section>
+        <% if(material!='' ){ %>
+            <div class="sorting">
+                <label for="">Sort by</label>
+                <form action="/products/ <%- material %>/ <%- category %>/  <%- body %> / <%- productTitle %>"
+                    method="post">
+                    <select name="sort" id="sort">
+                        <option value="Highestprice"> Highest price</option>
+                        <option value="Lowestprice"> Lowest price</option>
+                    </select>
+                    <input type="submit" value="Filter" id="filter">
+                </form>
+            </div>
+            <% } %>
+
+                <section class="product-container">
+                    <% if(products !='' ) {%>
+                        <% products.forEach((items)=> {%>
+                            <div class="box">
+                                <% if (User !=undefined) { %>
+                                    <%if(User.wishlist.includes(items._id)){%>
+                                        <a alt="" class="ri-heart-fill" id="heart-icon-<%= items._id %>"
+                                            data-productid="<%= items._id %>">
+                                        </a>
+                                        <% }else { %>
+                                            <a alt="" class="ri-heart-line" id="heart-icon-<%= items._id %>"
+                                                data-productid="<%= items._id %>">
+                                            </a>
+                                            <% } %> %>
+                                                <% }else { %>
+                                                    <a alt="" class="ri-heart-line" id="heart-icon-<%= items._id %>"
+                                                        data-productid="<%= items._id %>">
+                                                    </a>
+                                                    <% } %>
+                                                        <a href="/product/<%- items._id %>">
+                                                            <img class="imgg" src="/Images/<%- items.image %>" alt="">
+                                                        </a>
+                                                        <div class="items">
+                                                            <div class="prodetails">
+                                                                <p>
+                                                                    <%= items.name%>
+                                                                </p>
+                                                                <p class="price"> EGP
+                                                                    <%= items.price%>
+                                                                </p>
+                                                            </div>
+                                                            <%if (items.countInStock> 0){%>
+                                                                <button class="cartbtn"
+                                                                    data-cartitem="<%= items._id %>">
+                                                                    Add to cart
+                                                                </button>
+                                                                <% } else {%>
+                                                                    <button class="disabledbtn">
+                                                                        Out of stock
+                                                                    </button>
+                                                                    <% } %>
+                                                        </div>
+                            </div>
+                            <% }) %>
+                                <% } %>
+                </section>
+
+                <% if (user !=undefined) {%>
+
+
+
+                    <script src="/js/prod.js"></script>
+                    <% } %>
+
+
+                        <section class="pagination">
+                            <ul class="pages-links-list">
+                                <% if (current==1) { %>
+                                    <li class="page-item disabled">
+                                        <a href="#" class="page-link">FIRST</a>
+                                    </li>
+                                    <% } else { %>
+                                        <li class="page-item">
+                                            <a href="?page=1" class="page-link">FIRST</a>
+                                        </li>
+                                        <% } %>
+
+                                            <% for (let i=1; i <=pages; i++) { %>
+                                                <% if (i==current || i==1 || i==pages || (i>= current-1 && i <=
+                                                        current+1)) { %>
+                                                        <% if (i==current) { %>
+                                                            <li class="page-item active">
+                                                                <a href="#" class="page-link">
+                                                                    <%= i %>
+                                                                </a>
+                                                            </li>
+                                                            <% } else { %>
+                                                                <li class="page-item">
+                                                                    <a href="?page=<%= i %>" class="page-link">
+                                                                        <%= i %>
+                                                                    </a>
+                                                                </li>
+                                                                <% } %>
+                                                                    <% } else if ((i==2 && current < 4) || (i==pages-1
+                                                                        && current> pages-4) || (i == 3 && current == 4)
+                                                                        || (i == pages-2 && current == pages-3)) { %>
+                                                                        <li class="page-item">
+                                                                            <a href="?page=<%= i %>" class="page-link">
+                                                                                <%= i %>
+                                                                            </a>
+                                                                        </li>
+                                                                        <% } else if ((i==2 && current>= 4) || (i ==
+                                                                            pages-1 && current <= pages-4)) { %>
+                                                                                <li class="page-item disabled">
+                                                                                    <a href="#"
+                                                                                        class="page-link">...</a>
+                                                                                </li>
+                                                                                <% } %>
+                                                                                    <% } %>
+                                                                                        <% if (current==pages) { %>
+                                                                                            <li
+                                                                                                class="page-item disabled">
+                                                                                                <a href="#"
+                                                                                                    class="page-link">LAST</a>
+                                                                                            </li>
+                                                                                            <% } else { %>
+                                                                                                <li class="page-item">
+                                                                                                    <a href="?page=<%= pages %>"
+                                                                                                        class="page-link">LAST</a>
+                                                                                                </li>
+                                                                                                <% } %>
+
+                            </ul>
+                        </section>
+
+                        <script src="/js/cart.js"></script>
+                        <%- include('../partials/footer') -%>
+
+
+</body>
+
+</html>

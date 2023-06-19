@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/chechkout.css">
+    <link rel="stylesheet" type="text/css" href="/css/Signup.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+
+    <!-- to access font awesome cdn icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <title>Clementine</title>
+    <style>
+
+#shippingAddress1label{
+
+    position:relative;
+    top: -10px;
+    color: rgb(70, 4, 4);
+
+  }
+  #userfullnamelabel{
+    color: rgb(70, 4, 4);
+  }
+
+    </style>
+</head>
+
+<body>
+    <%- include('../partials/navbar') %>
+
+        <% if(totalamount==undefined){ %>
+            <h1 class="notfound">No items were found in your cart.</h1>
+            <% } else { %>
+                <section id="totalAmountReveal">
+                    Total amount:
+
+                    EGP <%= totalamount %>
+                        <div id="ship">Including shipping</div>
+                </section>
+
+                <section id="checkout-container">
+                    <h2>Billing Address </h2>
+                    <form class="checkoutForm" id="checkoutForm"  >
+                       <% if(user == undefined){ %>
+                        <div class="textfield">
+                            <input type="email" name="email" id="email">
+                            <label for="address" id="emaillabel"></label>
+                            <span class="sp1"></span>
+                            <div class="br"><br></div>
+                            <span class="errors">
+                            </span>
+                            <label for="">Email</label>
+                        </div>
+
+                       <% } %>
+                        <div class="textfield">
+                            <input type="text" name="userfullname" id="userfullname">
+                            
+                            <img src="/Images/right.png" alt="" width="15px" height="15px" class="true">
+                            <img src="/Images/wrongg.png" alt="" width="15px" height="15px" class="false">
+                            <span class="sp1"></span>
+                            <div class="br"><br></div>
+                            <span class="errors">
+                            </span>
+
+                            <label for=""> Full Name</label>
+                        </div>
+                        <label for="firstname" id="userfullnamelabel"></label>
+                        <div class="textfield">
+                            <input type="text" name="userfullnamelabel" id="shippingAddress1">
+                            
+                            <span class="sp1"></span>
+                            <div class="br"><br></div>
+                            <span class="errors">
+                            </span>
+                            <label for="">Address</label>
+                        </div>
+                        <label for="address" id="shippingAddress1label"></label>
+                        <div class="textfield">
+                            <input type="text" name="city" id="city">
+                            <label for="city" id="citylabel"></label>
+                            <span class="sp1"></span>
+                            <div class="br"><br></div>
+                            <span class="errors"></span>
+                            <label for="">City</label>
+                        </div>
+
+
+                        <div id="zip">
+                            <label>
+                                <h4>State</h4>
+                                <select id="statetype" name="statetype">
+                                    <option value="selectstate">Choose State..</option>
+                                    <option>Cairo</option>
+                                    <option>Giza</option>
+                                    <option>Alexandria</option>
+                                    <option>Sinai</option>
+                                </select>
+                                <label for="statetype" id="statelabel"></label>
+                                <div class="textfield">
+                                    <input type="text" name="zipcode" id="zipcode">
+                                    <label for="zipcode" id="ziplabel"></label>
+                                    <span class="sp1"></span>
+                                    <label for="">Zip Code</label>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="right">
+                            <h2>PAYMENT</h2>
+                            <h4 class="accepted">Accepted Cards</h4> <br>
+                            <img src="Images/card1.png" width="100">
+                            <img src="Images/card2.png" width="50">
+                            <br><br>
+
+
+                            <div class="textfield">
+                                <input type="text" name="CreditCardNumber" id="CreditCardNumber">
+                                <label for="card" id="cardlabel"></label>
+                                <span class="sp1"></span>
+                                <% if (!errors.CreditCardNumber) {%>
+                                    <div class="br"><br></div>
+                                    <% } %>
+                                        <span class="errors">
+                                            <%= errors && errors.CreditCardNumber? errors.CreditCardNumber : '' %>
+                                        </span>
+                                        <label for="">Credit Card Number</label>
+                            </div>
+
+                            <div class="textfield">
+                                <input type="text" name="exp_month" id="exp_month">
+                                <label for="cardexp" id="cardexlabel"></label>
+                                <span class="sp1"></span>
+                                <label for="">Expiry Month</label>
+                            </div>
+
+                            <div id="zip">
+                                <label>
+                                    <h4>Exp year</h4>
+                                    <select id="expyeardate" name="exp_year">
+                                        <option value="selectyear">Choose Year..</option>
+                                        <option>2024</option>
+                                        <option>2025</option>
+                                        <option>2026</option>
+                                        <option>2027</option>
+                                    </select>
+                                    <label for="expyeardate" id="expirelabel"></label>
+
+                                </label>
+
+                                <div class="textfield">
+                                    <input type="text" name="cvv" id="cvv">
+                                    <label for="caedcvv" id="cardcvvlabel"></label>
+                                    <span class="sp1"></span>
+                                    <label for="">CVV</label>
+                                </div>
+
+                            </div>
+                            <label>
+                                <input type="checkbox" checked="checked" class="sameadr" name="sameadr"> Shipping
+                                address same as billing
+                            </label>
+                            <input type="submit" class="submit" value="Place Order" class="place-order"><a
+                                class="place-link" href="/">Place Order</a>
+                        </div>
+                        </div>
+
+                    </form>
+                    <% } %>
+                        <script src="/js/checkout.js"></script>
+
+                        <script src="/js/trial.js"></script>
+                        <script src="/js/cart.js"></script>
+
+                </section>
+
+                <%- include('../partials/footer') %>
+
+</body>
+
+</html>

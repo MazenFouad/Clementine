@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- material icons cdn -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp" />
+    <link rel="stylesheet" href="/css/editcustdash.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Admin Dashboard</title>
+</head>
+
+<body>
+    <div class="container">
+        <%- include('../partials/dashboardsidebar', { currentPage: 'displayproducts' }) %>
+
+
+            <main>
+                <h1>Jewelry</h1>
+                <div id="products-container">
+                    <div class="addcust" id="addcust">
+                        <form class="form" action="/editproducts/<%= product.id %>" method="POST"
+                            enctype="multipart/form-data">
+                            <div class="add">
+                                <h2 class="add-title">You're updating: <%=product.name%>
+                                </h2>
+                            </div>
+                            <div class="products-container" style="display: block;">
+                                <div class="input-group">
+                                    <label for="id">Product ID</label>
+                                    <div>
+                                        <input id="id" type="text" placeholder="Product id" name="id"
+                                            value="<%= product.id %>">
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="name">Product Name</label>
+                                    <div>
+                                        <input id="name" type="text" placeholder="Product name" name="name"
+                                            value="<%= product.name %>">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="image">Current Image</label>
+                                    <div>
+                                        <% if (product.images && product.images.length > 0) { %>
+                                            <% product.images.forEach((image, index) => { %>
+                                                <div class="image-container">
+                                                    <img src="<%= image %>" alt="Product Image" width="100">
+                                                    <p><%= basename(image) %></p>
+                                                    <button type="button" class="remove-image" data-index="<%= index %>">Remove</button>
+                                                </div>
+                                            <% }); %>
+                                        <% } else { %>
+                                            <p>No image available</p>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                
+                                <div class="input-group" id="image-upload">
+                                    <label class="add-photo-btn">Upload Image
+                                        <input type="file" name="img" multiple>
+                                    </label>
+                                </div>
+
+                                <br>
+                                <div class="input-group">
+                                    <label for="price">Product Price</label>
+                                    <div>
+                                        <input id="price" type="text" placeholder="Product price" name="price"
+                                            value="<%= product.price %>">
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="description">Product Description</label>
+                                    <div>
+                                        <input id="description" type="text" placeholder="Product description"
+                                            name="description" class="description" value="<%= product.description %>">
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="category">Category</label>
+                                    <div>
+                                        <input id="category" type="text" placeholder="Product category" name="category"
+                                            value="<%= product.category %>">
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="countInStock">Count in Stock</label>
+                                    <div>
+                                        <input id="countInStock" type="text" placeholder="Count in stock"
+                                            name="countInStock" value="<%= product.countInStock %>">
+                                    </div>
+                                </div>
+
+                                <button type="submit" id="update">Update</button>
+                                <button id="cancel" href="/addproducts">Cancel</button>
+                            </div>
+                            <style>
+                                .image-container {
+                                    display: inline-block;
+                                    margin-right: 10px;
+                                    margin-bottom: 10px;
+                                    position: relative;
+                                }
+
+                                .form-check-input {
+                                    position: absolute;
+                                    top: 0;
+                                    right: 0;
+                                }
+
+                                .remove-image {
+                                    margin-left: 10px;
+                                    background-color: #7b0101;
+                                    color: #fff;
+                                    border: none;
+                                    padding: 5px 10px;
+                                    border-radius: 5px;
+                                    cursor: pointer;
+                                }
+
+                                .image-container {
+                                    display: inline-block;
+                                    margin-right: 10px;
+                                    margin-bottom: 10px;
+                                    position: relative;
+                                }
+
+                                .image-container:hover .remove-image {
+                                    display: block;
+                                }
+
+                                .remove-image {
+                                    display: none;
+                                    position: absolute;
+                                    top: 5px;
+                                    right: 5px;
+                                }
+                            </style>
+
+                            <script>
+                                const removeImageButtons = document.querySelectorAll('.remove-image');
+                                const imageUploadGroup = document.getElementById('image-upload');
+                                const imageUploadInput = imageUploadGroup.querySelector('input[type="file"]');
+
+                                removeImageButtons.forEach((button) => {
+                                    button.addEventListener('click', () => {
+                                        const index = button.dataset.index;
+                                        const imageContainer = button.parentNode;
+                                        imageContainer.parentNode.removeChild(imageContainer);
+                                        const hiddenInput = document.createElement('input');
+                                        hiddenInput.type = 'hidden';
+                                        hiddenInput.name = 'removedImages[]';
+                                        hiddenInput.value = index;
+                                        document.querySelector('.form').appendChild(hiddenInput);
+                                    });
+                                });
+
+                                imageUploadInput.addEventListener('change', () => {
+                                    if (imageUploadInput.files.length > 0) {
+                                        removeImageButtons.forEach((button) => {
+                                            button.style.display = 'none';
+                                        });
+                                    } else {
+                                        removeImageButtons.forEach((button) => {
+                                            button.style.display = 'block';
+                                        });
+                                    }
+                                });
+                            </script>
+                        </form>
+
+                        </form>
+                    </div>
+
+
+
+                    <div id="update-msg">
+                        <span>Product Updated Successfully.</span>
+                    </div>
+                    <div id="delete-msg">
+                        <span>Product Deleted Successfully.</span>
+                    </div>
+
+                    <script src="/js/orders.js"></script>
+
+                </div>
+            </main>
+
+    </div>
+
+</body>
+
+</html>

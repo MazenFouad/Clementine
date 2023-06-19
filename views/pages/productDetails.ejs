@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- to access font awesome cdn icons -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="/css/products.css">
+    <link rel="stylesheet" type="text/css" href="/css/productDetails.css">
+</head>
+
+<body>
+
+    <%- include('../partials/navbar') %>
+        <div class="parent">
+
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="product-imgs">
+                        <div class="img-select">
+                            <% for (let i=0; i < products.images.length; i++) { %>
+                                <div class="img-item">
+                                    <button>
+                                        <img src="/Images/<%= products.images[i] %>" alt="<%= products.name %>"
+                                            data-imgpath="<%= products.images[i] %>">
+                                    </button>
+                                </div>
+                                <% } %>
+                        </div>
+
+                        <div class="img-showcase">
+                            <img src="/Images/<%- products.image %>" alt="<%= products.name %>">
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="details">
+                <h2>
+                    <%= products.name%>
+                </h2>
+                <p class="info-snip">
+                    <%= products.description%>
+                </p>
+                <hr>
+                <p>
+                <p class="aboutring"><b> Brand:</b> Clementine </p>
+                <p class="aboutring"><b> Type:</b>
+                    <%= products.category%>
+                </p>
+                <p class="aboutring"><b> Metal:</b>
+                    <%= products.material %>
+                </p>
+
+                </p>
+                <div class="priceinfo">
+
+                    <div class="priceparagraph">
+                        <p class="price">
+                            Price:
+                        </p>
+                    </div>
+
+                    <div class="pricevalue">
+                        <p> EGP
+                            <%= products.price%>
+                        </p>
+                    </div>
+
+
+                </div>
+                <br>
+
+
+                <div class="wishlist" id="wishlist">
+                    
+                    <% if (User !=undefined) { %>
+                        <%if(User.wishlist.includes(products._id)){%>
+                            <img src="/Images/darkfav.png" alt="" id="darkfav" class="darkfav" data-wishid="<%= products._id %>" title="remove from wishlist">
+                            <span class="savesmall">REMOVE FROM WISHLIST</span>
+                            <% }else { %>
+                                <img src="/Images/whiteheart.png" alt="" id="fav" class="fav" data-wishid="<%= products._id %>" title="add to wishlist">
+                                <span class="savesmall">SAVE TO WISHLIST</span>
+                                <% } %> %>
+                                    <% }else { %>
+                                        <img src="/Images/whiteheart.png" alt="" id="fav" class="fav"
+                                            data-wishid="<%= products._id %>" title="add to wishlist">
+                                            <span class="savesmall">SAVE TO WISHLIST</span>
+                                        <% } %>
+                                            
+                </div>
+
+                <br>
+
+                <div class="btnsdiv">
+
+                    <button value="IN-STORE PICK UP" class="ispu">IN-STORE PICK UP</button>
+                    <%if (products.countInStock> 0){%>
+                        <button class="atc" data-cartitem="<%= products._id %>">
+                            ADD TO CART
+                        </button>
+                        <% } else {%>
+                            <button class="atc">
+                                OUT OF STOCK
+                            </button>
+                            <% } %>
+
+                </div>
+                <section id="payinfo">
+                    <p>4 interest-free payments of EGP 470 with <span class="special1">Klarna</span>. <span> <a href="#"
+                                class="learn-more" data-image="/Images/klarna.png" style="color: rgb(61, 61, 61);">Learn
+                                More</a></span></p>
+                    <p>Pay in 4 interest-free payments of EGP 465 with <span class="special2">Pay<span
+                                class="hoho">Pal</span></span>. <span> <a href="#" class="learn-more"
+                                data-image="/Images/paypal.png" style="color: rgb(61, 61, 61);">Learn More</a></span>
+                    </p>
+                    <p>Special Financing Available with <span class="special1">Clementine Credit Card</span>.<span> <a
+                                href="#" class="learn-more" data-image="" style="color: rgb(61, 61, 61);">Learn
+                                More</a></span></p>
+                </section>
+            </div>
+        </div>
+
+        <div class="popup">
+            <img src="" alt="" />
+            <button class="close-popup">X</button>
+        </div>
+
+        <section id="shipinfo">
+            <h1 id="shipping_returns">SHIPPING AND RETURNS</h1>
+            <i class="fas fa-shipping-fast" id="ed"></i>
+            <span id="shipinfotitle"> Ship to Home </span>
+            <p class="subtitle2">Standard Shipping</p>
+            <ul class="subul1">
+                <li> Free on orders EGP 2250+.
+                </li>
+                <li> Arrives in 2-4 business days.
+                </li>
+            </ul>
+            <p class="subtitle2">Next Day Shipping</p>
+            <ul class="subul1">
+                <li> Free on all Lab-Created Diamonds by Clementine purchases.</li>
+                <li> Arrives the next business day if ordered by 1pm ET.</li>
+            </ul>
+
+            <div id="sep">
+                <div> <i class="fa-solid fa-store" id="ed"></i>
+                    <span id="shipinfotitle"> In-Store Pickup </span>
+                    <ul class="subul1">
+                        <li> Free on all orders.
+                        </li>
+                        <li> Ready in 2 business hours.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="sep">
+                <div> <i class="fa-solid fa-right-left" id="ed"></i>
+                    <span id="shipinfotitle"> Returns </span>
+                    <ul class="subul1">
+                        <li> Free and easy returns within 30 days, online or in-store.
+                        </li>
+                        <li> Prepaid return label included.
+                        </li>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- prodacts cards -->
+        <div class="maylike">
+
+            <p class="head">You May Also Like</p>
+            <section class="pcontainer">
+                <% if(product !='' ) {%>
+                    <% product.forEach((items)=> {%>
+                        <div class="box">
+
+                            <% if (User !=undefined) { %>
+                                <%if(User.wishlist.includes(items._id)){%>
+                                    <a alt="" class="ri-heart-fill" id="included-icon-<%= items._id %>"
+                                        data-productid="<%= items._id %>">
+                                    </a>
+                                    <% }else { %>
+                                        <a alt="" class="ri-heart-line" id="heart-icon-<%= items._id %>"
+                                            data-productid="<%= items._id %>">
+                                        </a>
+                                        <% } %> %>
+                                            <% }else { %>
+                                                <a alt="" class="ri-heart-line" id="heart-icon-<%= items._id %>"
+                                                    data-productid="<%= items._id %>">
+                                                </a>
+                                                <% } %>
+
+                                                    <a href="/product/<%- items._id %>">
+                                                        <img class="imgg" src="/Images/<%- items.image %>" alt="">
+                                                    </a>
+                                                    <div class="items">
+                                                        <div class="prodetails">
+                                                            <p>
+                                                                <%= items.name%>
+                                                            </p>
+                                                            <p class="price">EGP
+                                                                <%= items.price%>
+                                                            </p>
+                                                        </div>
+
+                                                        <%if (items.countInStock> 0){%>
+                                                            <button class="cartbtn" data-cartitem="<%= items._id %>">
+                                                                Add to cart
+                                                            </button>
+                                                            <% } else {%>
+                                                                <button class="cartbtn">
+                                                                    Out of stock
+                                                                </button>
+                                                                <% } %>
+                                                    </div>
+                        </div>
+                        <% }) %>
+                            <% } %>
+            </section>
+            <div class="review">
+                <p><b>You are reviewing: </b> <b>
+                        <%= products.name%>
+                    </b> </p>
+                <div class="signIn">
+                    <span id="productid" class="<%= products._id %>"></span>
+                    <form  method="post" class="signInform" id="signInform">
+                        <div class="textfield">
+                            <input type="email" name="email" id="email">
+                            <span class="sp1" ></span>
+                             <label for="" id="emaillabel"></label>
+                            <label for=""id="quick">E-mail</label>
+                        </div>
+                        <div class="textfield">
+                            <input type="text" name="summary" id="summary">
+
+                            <span class="sp1" ></span>
+                            <label for="" id="summarylabel"></label>
+                            <label for="summary"id="quick">Summary</label>
+                        </div>
+                        <div class="textfield">
+                            <input type="text" name="review" id="review">
+
+                            <span class="sp1" ></span>
+                            <label for="" id="reviewlabel"></label>
+                            <label for="" id="quick">Review</label>
+                        </div>
+                        <input type="submit" class="submit">
+                        <br><br>
+                    </form>
+                </div>
+            </div>
+            <script>
+
+                var popup = document.getElementById('popup');
+                
+                $(document).on('click', '.fav', async function () {
+                    var prodID = $(this).data('wishid');
+                    document.getElementById('fav').setAttribute('src', '/Images/darkfav.png');
+                    fetch('/add-to-wishlist', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ prodID }),
+                    })
+                        .then((res) => res.json())
+                        .then((data) => {
+                            let product = data.product;
+                            popup.classList.add('open-popup');
+                            popup.innerHTML = ``;
+                            popup.innerHTML += `You have added <span> ${product.name} </span>to your wishlist`;
+                            setTimeout(function () {
+                                popup.className = 'popup';
+                            }, 3000);
+                        });
+                });
+                
+                $(document).on('click', '.darkfav', async function () {
+                    var wishprodID = $(this).data('wishid');
+                    document
+                        .getElementById('darkfav')
+                        .setAttribute('src', '/Images/whiteheart.png');
+                    fetch('/remove-from-wishlist', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ wishprodID }),
+                    });
+                });
+                
+                </script>
+            <script src="/js/popupprod.js"></script>
+            <script src="/js/cart.js"></script>
+            <script src="/js/slideshow.js"></script>
+            <script src="/js/prod.js"></script>
+                 
+            <%- include('../partials/footer') -%>
+
+</body>
+
+
+</html>

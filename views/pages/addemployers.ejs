@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- material icons cdn -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp" />
+    <link rel="stylesheet" href="/css/editcustdash.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Employer</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+
+
+    <div class="container">
+        <%- include('../partials/dashboardsidebar', { currentPage: 'employersdash' }) %>
+
+        <main>
+            <h1>Employers</h1>
+            <div id="addemployers-container">
+                <div class="addemployers">
+                    <form    id="signInform"  >
+                        <div class="add">
+                            <h2 class="add-title">Add Employer</h2>
+                        </div>
+                        <div class="employers-container">
+                            <div class="input-group">
+                                <label for="name">Name</label>
+                                <input id="name" type="text" placeholder="Employer's Name" name="name" >
+                                <span id="namelabel"   ></span>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="email">Email</label>
+                                <input id="email" type="email" placeholder="Employer's Email" name="email" >
+                                <span class="errormsg" id="emaillabel"  ></span>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="password">Password</label>
+                                <input id="password" type="password" placeholder="Employer's Password" name="password"
+                                    >
+                                <span id="passlabel"   ></span>
+                            </div>
+                            <div class="input-group">
+                                <label for="password">Confirm Password</label>
+                                <input id="confirmpassword" type="password" placeholder="Employer's confirm password" name="password"
+                                    >
+                                <span id="confirmpasslabel"  ></span>
+                            </div>
+                            <div class="input-group">
+                                <label for="phone">Phone</label>
+                                <input id="phone" type="text" placeholder="Employer's Phone" name="phone" >
+                                <span class="errormsg"  id="phonelabel"></span>
+                            </div>
+
+                            <div class="input-group">
+                                <label class="checkbox-label">
+                                    <input id="isAdmin" type="checkbox" name="isAdmin">
+                                    Is Admin
+                                </label>
+                            </div>
+                            <!-- <input type="submit" id="add" value="Add"> -->
+                            <button id="add"  >Add</button>
+                            <button id="cancel" href="/addemployers">Cancel</button></span>
+
+                    </form>
+                    <script src="/js/addemp.js"></script>
+                
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

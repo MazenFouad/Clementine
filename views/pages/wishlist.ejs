@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/wishlist.css">
+    <!-- to access font awesome cdn icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>Clementine</title>
+</head>
+
+<body>
+    <%- include('../partials/navbar') %>
+        <h1 class="wishlist-header">Your wishlist</h1>
+        <div class="wishlist-wrap">
+            <% if(products !='' ) {%>
+                <% products.forEach((items)=> { %>
+                    <div class="prod">
+                        <div class="wishlist-items">
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <a alt="" class="ri-close-fill" id="close-icon-<%= items._id %>"
+                                        data-wishid="<%= items._id %>">
+                                        </a>
+                                        <a href="/product/<%- items._id %>">
+                                        <img src="./Images/<%- items.image %>" class="product-thumb" alt="">
+                                        </a>
+                                        <%if (items.countInStock> 0){%>
+                                            <button class="atc" data-cartitem="<%= items._id %>">Add to cart</button> <%}else {%>
+                                                <%}%>
+                                        
+                                            
+                                        </button>
+                                </div>
+                                <div class="product-info">
+                                    <h2 class="product-brand">
+                                        <%= items.name%>
+                                    </h2>
+                                    <p class="product-short-des">
+                                        <%if (items.countInStock> 0){%>
+                                            In stock <%}else {%>
+                                                Out of stock
+                                                <%}%>
+                                    </p>
+                                    <span class="price">
+                                        <%= items.price%>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+                        <% } else if (user == undefined || employer == undefined) {%>
+                            <h2>Your wishlist is empty</h2>
+                            <% } %>
+
+        </div>
+        <script src="/js/wish.js"></script>
+        <script src="/js/cart.js"></script>
+        <%- include('../partials/footer') %>
+
+</body>
+
+
+</html>

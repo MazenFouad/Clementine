@@ -1,0 +1,179 @@
+<!-- Navigation Bar Start -->
+<div id="google_translate_element"></div>
+
+
+<section id="navigationbar">
+    <div class="navigation">
+        <div class="container">
+            <div class="navbar">
+                
+                <div class="logo-toggle-container">
+                    <a href="/">
+                        <img src="/Images/logoo copy.png">
+                    </a>
+                    <span class="toggle-box">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </div>
+
+                <ul class="menu">
+                    
+                    <li><a href="/">HOME</a></li>
+                    <li><a href="/newin">NEW IN</a></li>
+                    <li><a href="/drings">DIAMOND +</a>
+                        <ul>
+                            <li><a href="/drings">RINGS</a></li>
+                            <li><a href="/dearrings">EARRINGS</a></li>
+                            <li><a href="/dnecklaces">NECKLACES</a></li>
+                            <li><a href="/dbracelets">BRACELETS</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/grings">GOLD +</a>
+                        <ul>
+                            <li><a href="/grings">RINGS</a></li>
+                            <li><a href="/gearrings">EARRINGS</a></li>
+                            <li><a href="/gnecklaces">NECKLACES</a></li>
+                            <li><a href="/gbracelets">BRACELETS</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/contactus">CONTACT US</a></li>
+
+
+
+
+                    <!--Search bar starts-->
+
+
+                    <li><a href="/search"><i class="ri-search-line"></i></a></li>
+
+                    <% if(user!=undefined || employer!= undefined){%>
+                        <li><a href="/userprofile"><i class="ri-account-circle-line"></i></a>
+                            <ul>
+                                <li><a href="/userprofile">ACCOUNT DETAILS</a></li>
+                                <li><a href="/logout">LOG OUT</a></li>
+                            </ul>
+                        </li>
+                        <% }else{ %>
+                            <li><a href="/login"><i class="ri-account-circle-line"></i></a>
+                                <ul>
+                                    <li><a href="/login">LOG IN</a></li>
+                                    <li><a href="/signup">SIGN UP</a></li>
+                                </ul>
+                            </li>
+                            <% }%>
+
+
+                                <!-- wishlist start -->
+                                <li><a href="/wishlist"><i class="ri-heart-line"></i></a>
+
+                                    <!-- wishlist end -->
+
+                                    <!--Cart Start-->
+                                <li><a  id="cart-icon"><i class="ri-shopping-bag-line"></i></a>
+                                    <div class="cart" id="cart">
+                                        <div class="cart-window" id="sidebar">
+                                            <button id="closesidebarbtn" onclick="closesidebar()"><span
+                                                    class="material-icons">close</span></button>
+                                            <div class="cart-wrapper">
+                                                <h2 class="ShopBag">My Shopping Bag</h2>
+                                                <div class="line"></div>
+                                                <!-- Cart start -->
+                                                <% if(cart!=undefined && cart.items!='' ){ %>
+                                                    <% cart.items.forEach((items)=> {%>
+                                                        <% if(items.quantity>0){ %>
+                                                            <div class="cart-item">
+                                                                <a class="remove-btn" id="remove" data-cartpro="<%= items.id %>"><i
+                                                                        class="ri-close-line"></i>
+                                
+                                                                </a>
+                                                                        
+                                                                <img src="/Images/<%- items.image %>" alt="">
+                                                                <div class="details">
+                                                                    <div class="name">
+                                                                        <%= items.name %>
+                                                                    </div>
+                                                                    <div class="btn-wrapper">
+                                                                        <a class="cartminus"
+                                                                            data-minusid="<%= items.id %>">
+                                                                            <span class="minus">
+                                                                                -
+                                                                            </span>
+                                                                        </a>
+                                                                        <span class="num">
+                                                                            <%= items.quantity %>
+                                                                        </span>
+                                                                        <a class="cartplus"
+                                                                            data-addid="<%= items.id %>">
+                                                                            <span class="add">
+                                                                                +
+                                                                            </span>
+                                                                        </a>
+                                                                    </div>
+                                                                    <button class="wishlist-btn"
+                                                                        data-productid="<%- items.id %>">Add to
+                                                                        Wishlist
+                                                                    </button>
+                                                                    <div class="price"> Price: <%= items.price *
+                                                                            items.quantity %>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                         <%} }) }else{ %>
+                                                            <div class="cart-item">
+
+                                                                <div class="empty">Your cart is empty</div>
+                                                            </div>
+                                                             <% } %>
+                                                            <div class="total">
+                                                                <div class="shipping">
+                                                                        <p><span>Subtotal</span> <span>EGP <span id="total-before">
+                                                                            <% var price=0 %>
+                                                                            <% if(cart!=undefined && cart.items!='' ){ var price=0%>
+                                                                                <% cart.items.forEach((items)=> {%>
+                                                                                    <%if(items.quantity> 0){ %>
+                                                                                        <% price +=(items.price * items.quantity) %>
+                                                                                            <% }})} %>
+                                                                                         <%= price%>
+                                                                                    </span></span></p>
+                                                                        <p><span>Shipping</span> <span>EGP<span>100</span></span>
+                                                                        </p>
+                                                                </div>
+                                                                <p><span>Total</span> <span>EGP <span id="total-after">
+                                                                                    <%=price +=100%>
+                                                                    </span></span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="checkout-btn">
+                                                                <button class="checkout" onclick="location.href='/cart'">CHECKOUT</button>
+                                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Cart End-->
+                                </li>
+                          <div id="weglot_here"></div>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".navigation .navbar .logo-toggle-container .toggle-box").click(function () {
+            $(".navigation .menu").stop().slideToggle();
+        });
+    });
+    
+  Weglot.initialize({
+        api_key: 'wg_0bf2bb7e290e72f3fd8b2539acb64ed99'});
+</script>
+ 
+
+
+  
+<!-- Navigation Bar End -->

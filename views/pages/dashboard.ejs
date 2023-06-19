@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- material icons cdn -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp" />
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <title>Admin Dashboard</title>
+
+
+</head>
+
+<body>
+
+    <div class="container">
+
+
+        <%- include('../partials/dashboardsidebar', { currentPage: 'dashboard' }) %>
+
+
+
+        <main>
+            <h1>Dashboard</h1>
+            
+
+
+            <div class="employer-info">
+                
+                <h2>Employer Information</h2>
+                <p>Name: <%= employer.name %></p>
+                <p>Email: <%= employer.email %></p>
+                <p>Phone: <%= employer.phone %></p>
+            </div>
+
+
+
+            <div class="recent-orders">
+                <h2>Recent Orders</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>City</th>
+                            <th>Order Date</th>
+                            <th>Status</th>
+                            <th>Amount</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% recentOrders.forEach((order) => { %>
+                        <tr>
+                            <td><%= order._id %></td>
+                            <td><%= order.userFullName %></td>
+                            <td><%= order.city %></td>
+                            <td><%= order.dateOrdered %></td>
+                            <td><%= order.status %></td>
+                            <td><%= order.totalAmount %></td>
+                            <td class="primary"><a href="/ordersdash/<%= order._id %>">Details</a></td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+                <a href="/ordersdash">Show All</a>
+            </div>
+
+
+        </main>
+        <!-- end of main -->
+
+        <div class="right">
+            <div class="top">
+                
+                <div class="theme-toggler">
+                    <span class="material-symbols-sharp active">light_mode</span>
+                    <span class="material-symbols-sharp">dark_mode</span>
+                </div>
+                <div class="profile">
+                    <div class="info">
+                        <p>Hey, <b><%=employer.name%></b> </p>
+                        <small class="text-muted">Admin</small>
+                    </div>
+                    <div class="profile-photo">
+                        <!-- <img src="Team Members Info/team members pics/eslam.JPEG" alt=""> -->
+                    </div>
+                </div>
+            </div>
+            <!-- end of top -->
+
+
+            <div class="left">
+                <h2 class="customers-title">Total number of customers</h2>
+                <h1 class="total-customers"><%= totalUsers %></h1>
+            </div>
+
+            <!-- end of recent updates -->
+            <div class="sales-analytics">
+
+
+                <div class="item customers">
+                    <div class="icon"><span class="material-symbols-sharp">person</span></div>
+                    <div class="right">
+                        <div class="info">
+                            <a href="/editcustdash">
+                                <h3>Check New CUSTOMERS</h3>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="item add-product">
+                    <div>
+                        <span class="material-symbols-sharp">add</span>
+                        <h3><a href="/addproducts">Add Product</a></h3>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <script src="js/dashboard.js"></script>
+
+</body>
+
+</html>
